@@ -1,0 +1,173 @@
+month,geography,sales_cad_thousands,quality_status
+2023-01,"Edmonton, Alberta",2543210,A
+2023-01,"Calgary, Alberta",2425321,A
+2023-01,Alberta,7422640,A
+2023-01,Canada,55163361,A
+2023-02,"Edmonton, Alberta",2484505,A
+2023-02,"Calgary, Alberta",2408414,A
+2023-02,Alberta,7219479,A
+2023-02,Canada,53718424,A
+2023-03,"Edmonton, Alberta",2970960,A
+2023-03,"Calgary, Alberta",2833038,A
+2023-03,Alberta,8514558,A
+2023-03,Canada,64501096,A
+2023-04,"Edmonton, Alberta",2789933,A
+2023-04,"Calgary, Alberta",2720843,A
+2023-04,Alberta,8256499,A
+2023-04,Canada,64838369,A
+2023-05,"Edmonton, Alberta",3219950,A
+2023-05,"Calgary, Alberta",3163978,A
+2023-05,Alberta,9522238,A
+2023-05,Canada,72465329,A
+2023-06,"Edmonton, Alberta",3079367,A
+2023-06,"Calgary, Alberta",2989916,A
+2023-06,Alberta,9118981,A
+2023-06,Canada,70863412,A
+2023-07,"Edmonton, Alberta",2962582,A
+2023-07,"Calgary, Alberta",2697232,A
+2023-07,Alberta,8556157,A
+2023-07,Canada,68124865,A
+2023-08,"Edmonton, Alberta",3060563,A
+2023-08,"Calgary, Alberta",2821927,A
+2023-08,Alberta,8940366,A
+2023-08,Canada,69487092,A
+2023-09,"Edmonton, Alberta",2894064,A
+2023-09,"Calgary, Alberta",2691953,A
+2023-09,Alberta,8485362,A
+2023-09,Canada,67179240,A
+2023-10,"Edmonton, Alberta",2918237,A
+2023-10,"Calgary, Alberta",2803395,A
+2023-10,Alberta,8678609,A
+2023-10,Canada,67675476,A
+2023-11,"Edmonton, Alberta",2891551,A
+2023-11,"Calgary, Alberta",2792575,A
+2023-11,Alberta,8560596,A
+2023-11,Canada,69242876,A
+2023-12,"Edmonton, Alberta",3026496,A
+2023-12,"Calgary, Alberta",2819329,A
+2023-12,Alberta,8703610,A
+2023-12,Canada,69109518,A
+2024-01,"Edmonton, Alberta",2488115,A
+2024-01,"Calgary, Alberta",2312030,A
+2024-01,Alberta,7203973,A
+2024-01,Canada,56795411,A
+2024-02,"Edmonton, Alberta",2542042,A
+2024-02,"Calgary, Alberta",2345755,A
+2024-02,Alberta,7263225,A
+2024-02,Canada,57401452,A
+2024-03,"Edmonton, Alberta",2945166,A
+2024-03,"Calgary, Alberta",2597898,A
+2024-03,Alberta,8213327,A
+2024-03,Canada,64047104,A
+2024-04,"Edmonton, Alberta",3044043,A
+2024-04,"Calgary, Alberta",2771339,A
+2024-04,Alberta,8664079,A
+2024-04,Canada,67576734,A
+2024-05,"Edmonton, Alberta",3265821,A
+2024-05,"Calgary, Alberta",2973812,A
+2024-05,Alberta,9395144,A
+2024-05,Canada,73949545,A
+2024-06,"Edmonton, Alberta",3035989,A
+2024-06,"Calgary, Alberta",2787823,A
+2024-06,Alberta,8866751,A
+2024-06,Canada,69462431,A
+2024-07,"Edmonton, Alberta",3198599,A
+2024-07,"Calgary, Alberta",2875746,A
+2024-07,Alberta,9151663,A
+2024-07,Canada,70864339,A
+2024-08,"Edmonton, Alberta",3148500,A
+2024-08,"Calgary, Alberta",2860973,A
+2024-08,Alberta,9003333,A
+2024-08,Canada,70817113,A
+2024-09,"Edmonton, Alberta",3002504,A
+2024-09,"Calgary, Alberta",2717121,A
+2024-09,Alberta,8587653,A
+2024-09,Canada,66645091,A
+2024-10,"Edmonton, Alberta",3198757,A
+2024-10,"Calgary, Alberta",2976824,A
+2024-10,Alberta,9300541,A
+2024-10,Canada,71758061,A
+2024-11,"Edmonton, Alberta",3004784,A
+2024-11,"Calgary, Alberta",2916232,A
+2024-11,Alberta,8924433,A
+2024-11,Canada,71853986,A
+2024-12,"Edmonton, Alberta",3085121,A
+2024-12,"Calgary, Alberta",2976891,A
+2024-12,Alberta,9186571,A
+2024-12,Canada,73022887,A
+2025-01,"Edmonton, Alberta",2695125,A
+2025-01,"Calgary, Alberta",2383599,A
+2025-01,Alberta,7708571,A
+2025-01,Canada,60525808,A
+2025-02,"Edmonton, Alberta",2368163,A
+2025-02,"Calgary, Alberta",2311336,A
+2025-02,Alberta,7250012,A
+2025-02,Canada,57311827,A
+2025-03,"Edmonton, Alberta",2942363,A
+2025-03,"Calgary, Alberta",2765602,A
+2025-03,Alberta,8703898,A
+2025-03,Canada,67399909,A
+2025-04,"Edmonton, Alberta",2838798,A
+2025-04,"Calgary, Alberta",2755131,A
+2025-04,Alberta,8626983,A
+2025-04,Canada,71181787,A
+2025-05,"Edmonton, Alberta",3359712,A
+2025-05,"Calgary, Alberta",3078642,A
+2025-05,Alberta,9807800,A
+2025-05,Canada,76831848,A
+2025-06,"Edmonton, Alberta",3216024,A
+2025-06,"Calgary, Alberta",2890029,A
+2025-06,Alberta,9305717,A
+2025-06,Canada,73174736,A
+2025-07,"Edmonton, Alberta",3199154,A
+2025-07,"Calgary, Alberta",2873274,A
+2025-07,Alberta,9347158,A
+2025-07,Canada,74134516,A
+2025-08,"Edmonton, Alberta",3236116,A
+2025-08,"Calgary, Alberta",2895125,A
+2025-08,Alberta,9303697,A
+2025-08,Canada,73046640,A
+2025-09,"Edmonton, Alberta",2826276,A
+2025-09,"Calgary, Alberta",2846889,A
+2025-09,Alberta,8752249,A
+2025-09,Canada,69561507,A
+2025-10,"Edmonton, Alberta",3212968,A
+2025-10,"Calgary, Alberta",2957719,A
+2025-10,Alberta,9316914,A
+2025-10,Canada,73101615,A
+2025-11,"Edmonton, Alberta",3228735,A
+2025-11,"Calgary, Alberta",2979918,A
+2025-11,Alberta,9282851,A
+2025-11,Canada,72845874,A
+2025-12,"Edmonton, Alberta",3212348,A
+2025-12,"Calgary, Alberta",3083308,A
+2025-12,Alberta,9483372,A
+2025-12,Canada,74513803,A
+2026-01,"Edmonton, Alberta",2879679,A
+2026-01,"Calgary, Alberta",2602973,A
+2026-01,Alberta,8202914,A
+2026-01,Canada,61583860,A
+2026-02,"Edmonton, Alberta",2703642,A
+2026-02,"Calgary, Alberta",2461424,A
+2026-02,Alberta,7646476,A
+2026-02,Canada,59716252,A
+2026-03,"Edmonton, Alberta",3277525,A
+2026-03,"Calgary, Alberta",2980695,A
+2026-03,Alberta,9308754,A
+2026-03,Canada,70067715,A
+2026-04,"Edmonton, Alberta",3334077,A
+2026-04,"Calgary, Alberta",2981165,A
+2026-04,Alberta,9365817,A
+2026-04,Canada,73338373,A
+2026-05,"Edmonton, Alberta",3640053,A
+2026-05,"Calgary, Alberta",3330910,A
+2026-05,Alberta,10576402,A
+2026-05,Canada,79927499,A
+2026-06,"Edmonton, Alberta",3534746,A
+2026-06,"Calgary, Alberta",3152007,A
+2026-06,Alberta,10166657,A
+2026-06,Canada,78475890,A
+2026-07,"Edmonton, Alberta",3583120,A
+2026-07,"Calgary, Alberta",3131691,B
+2026-07,Alberta,10231135,A
+2026-07,Canada,77817236,A
