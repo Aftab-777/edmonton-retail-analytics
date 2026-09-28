@@ -25,8 +25,8 @@ DIVIDE (
 )
 ```
 
-4. Format `[Retail Sales CAD]` as currency with billions or millions display units; format the two percentage measures as percentages with two decimal places.
-5. Add a date slicer and a geography slicer. For the city comparison, make a line chart with `Calendar[Date]` by month on the x-axis, `YoY %` on the y-axis, and `geography` in the legend; select Edmonton and Calgary. Use a table visual for latest month sales and quality status. Add a card for Edmonton's share of Alberta, with the latest month selected.
+4. Format `[Retail Sales CAD]` as currency with billions or millions display units; format the two percentage measures as percentages with two decimal places. In **View → Themes → Browse for themes**, import [`retail-theme.json`](retail-theme.json) to match the dashboard preview palette.
+5. Use the [interactive dashboard preview](../dashboard/index.html) as a visual reference: a month slicer across the top; four cards (Edmonton sales, Edmonton YoY, Edmonton share of Alberta, Calgary sales); a two-city annual growth line chart; and a selected-month sales comparison for Edmonton, Calgary, and Alberta. For the growth line chart, put `Calendar[Date]` by month on the x-axis, `YoY %` on the y-axis, and `geography` in the legend; select Edmonton and Calgary. Use a table visual to show source quality status. Set the page to the latest month to check the cards.
 6. Check July 2026 against `python scripts/run_analysis.py`: Edmonton **CAD 3.583 billion**, Calgary **CAD 3.132 billion**, Edmonton **12.00% YoY**, Calgary **8.99% YoY**, and Edmonton share of Alberta **35.02%**. Display rounding may differ slightly.
 
 The values are unadjusted monthly sales. Use the same month in the previous year for growth; avoid presenting consecutive-month changes as seasonally adjusted trends. The snapshot can be revised in later Statistics Canada releases. The status column contains source data quality indicators and should remain available to readers.
