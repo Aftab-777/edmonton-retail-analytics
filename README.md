@@ -2,8 +2,6 @@
 
 An end-to-end business intelligence study of monthly retail sales in Edmonton, with Calgary and Alberta as comparisons. It uses **real public data** from Statistics Canada, table [20-10-0056-01](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2010005601), released September 24, 2026. This is an independent portfolio exercise and is not affiliated with Statistics Canada.
 
-This starter project was prepared with AI assistance. The published scripts were run against the committed source snapshot, and the figures below were checked against their SQL output.
-
 ![Line chart of Edmonton and Calgary retail sales year-over-year growth](docs/retail_growth.svg)
 
 ## Business questions
