@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Edmonton Retail Pulse | Portfolio dashboard preview</title>
+  <style>
+    :root { font-family: Inter, "Segoe UI", Arial, sans-serif; color: #172b4d; background: #f5f7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .shell { max-width: 1260px; margin: auto; padding: 34px 30px 58px; }
+    .eyebrow { color: #3366a6; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    header { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; }
+    h1 { margin: 9px 0 9px; font-size: clamp(30px, 3.2vw, 45px); letter-spacing: -.045em; line-height: 1.12; }
+    .subtitle { margin: 0; max-width: 640px; color: #627189; line-height: 1.55; }
+    .badge { flex-shrink: 0; border: 1px solid #d5e4f7; background: #eaf3ff; padding: 11px 15px; border-radius: 100px; color: #215b9c; font-size: 12px; font-weight: 750; }
+    .toolbar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+    .toolbar label { color: #50617a; font-weight: 700; font-size: 13px; }
+    select { appearance: none; background: #fff; color: #172b4d; border: 1px solid #d8e2f0; border-radius: 11px; padding: 11px 39px 11px 14px; min-width: 175px; font: inherit; font-weight: 650; cursor: pointer; }
+    .select-wrap { position: relative; }
+    .select-wrap:after { content: "⌄"; position: absolute; right: 14px; top: 7px; pointer-events: none; color: #50617a; font-size: 20px; }
+    .asof { margin-left: auto; color: #697990; font-size: 12px; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+    .card { background: #fff; border: 1px solid #e3eaf4; box-shadow: 0 8px 32px #19365909; border-radius: 17px; }
+    .kpi { padding: 21px 21px 20px; min-height: 136px; }
+    .kpi .label { color: #627189; font-size: 12px; font-weight: 750; text-transform: uppercase; letter-spacing: .065em; }
+    .kpi .number { margin-top: 15px; font-size: clamp(25px, 2.7vw, 37px); font-weight: 800; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+    .kpi .detail { color: #697990; font-size: 12px; margin-top: 7px; }
+    .up { color: #218465; } .down { color: #c65252; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); gap: 16px; }
+    .panel { padding: 24px; min-width: 0; }
+    .panel h2 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.025em; }
+    .panel .desc { color: #697990; font-size: 13px; line-height: 1.5; margin: 0 0 15px; }
+    .legend { display: flex; gap: 18px; font-size: 12px; color: #4f6079; font-weight: 700; }
+    .legend span:before { content: ""; display: inline-block; width: 18px; height: 3px; margin: 0 7px 3px 0; background: var(--line); border-radius: 3px; }
+    svg { width: 100%; height: auto; overflow: visible; }
+    .chart-area { height: 300px; display: flex; align-items: center; }
+    .bar-label { display: flex; justify-content: space-between; margin: 24px 0 9px; font-size: 13px; font-weight: 700; }
+    .bar-track { width: 100%; height: 20px; background: #edf2f8; border-radius: 6px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 6px; }
+    .insight { margin-top: 16px; padding: 21px 24px; border-left: 4px solid #1d5db5; }
+    .insight h2 { margin: 0 0 8px; font-size: 15px; }
+    .insight p { margin: 0; color: #4c607d; line-height: 1.6; font-size: 13px; }
+    footer { margin-top: 20px; color: #63738a; font-size: 11px; line-height: 1.6; }
+    footer a { color: #1d5db5; }
+    @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2,1fr); } .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 550px) { .shell { padding: 24px 15px 42px; } header { display: block; } .badge { display: inline-block; margin-top: 18px; } .kpis { gap: 9px; } .kpi { min-height: 125px; padding: 16px; } .kpi .number { font-size: 25px; } .panel { padding: 18px; } .asof { margin-left: 0; width: 100%; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><div class="eyebrow">Public data · Business intelligence</div><h1>Edmonton Retail Pulse</h1><p class="subtitle">A local view of monthly retail sales, annual growth, and Edmonton’s share of Alberta’s total.</p></div>
+      <span class="badge">Portfolio dashboard preview</span>
+    </header>
+    <div class="toolbar"><label for="month">Reporting month</label><div class="select-wrap"><select id="month" aria-label="Reporting month"></select></div><span class="asof">Statistics Canada snapshot: September 24, 2026</span></div>
+    <section class="kpis" aria-label="Key measures">
+      <div class="card kpi"><div class="label">Edmonton sales</div><div class="number" id="edmonton-sales"></div><div class="detail">CAD, selected month</div></div>
+      <div class="card kpi"><div class="label">Edmonton annual growth</div><div class="number" id="edmonton-yoy"></div><div class="detail">Same month one year earlier</div></div>
+      <div class="card kpi"><div class="label">Edmonton share of Alberta</div><div class="number" id="edmonton-share"></div><div class="detail">Edmonton CMA ÷ Alberta province</div></div>
+      <div class="card kpi"><div class="label">Calgary sales</div><div class="number" id="calgary-sales"></div><div class="detail" id="calgary-yoy"></div></div>
+    </section>
+    <section class="grid" aria-label="Retail charts">
+      <div class="card panel"><h2>Annual growth by city</h2><p class="desc">Each point compares unadjusted sales with the same month in the prior year. The line stops at the selected month.</p><div class="legend"><span style="--line:#1d5db5">Edmonton</span><span style="--line:#e57939">Calgary</span></div><div class="chart-area"><svg id="trend" viewBox="0 0 720 280" role="img" aria-label="Edmonton and Calgary year over year retail sales growth"></svg></div></div>
+      <div class="card panel"><h2>City sales comparison</h2><p class="desc">Selected month · CAD billions</p><div class="bar-label"><span>Edmonton</span><span id="edmonton-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="edmonton-bar" style="background:#1d5db5"></div></div><div class="bar-label"><span>Calgary</span><span id="calgary-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="calgary-bar" style="background:#e57939"></div></div><div class="bar-label"><span>Alberta</span><span id="alberta-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="alberta-bar" style="background:#8393aa"></div></div><p class="desc" style="margin-top:28px">City amounts are part of Alberta’s provincial total, so the bars are comparisons rather than additive categories.</p></div>
+    </section>
+    <section class="card insight"><h2>Reading the numbers</h2><p id="insight-text"></p></section>
+    <footer>Source: Statistics Canada, <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2010005601">table 20-10-0056-01</a>, snapshot released September 24, 2026. Amounts originate in CAD thousands and are converted to billions. Unadjusted monthly data are subject to revision; check the latest release for current figures. Independent portfolio visualization. This interactive HTML preview is not a Power BI report.</footer>
+  </main>
+  <script>
+  const observations = [["2023-01","Edmonton, Alberta",2543210,"A"],["2023-01","Calgary, Alberta",2425321,"A"],["2023-01","Alberta",7422640,"A"],["2023-01","Canada",55163361,"A"],["2023-02","Edmonton, Alberta",2484505,"A"],["2023-02","Calgary, Alberta",2408414,"A"],["2023-02","Alberta",7219479,"A"],["2023-02","Canada",53718424,"A"],["2023-03","Edmonton, Alberta",2970960,"A"],["2023-03","Calgary, Alberta",2833038,"A"],["2023-03","Alberta",8514558,"A"],["2023-03","Canada",64501096,"A"],["2023-04","Edmonton, Alberta",2789933,"A"],["2023-04","Calgary, Alberta",2720843,"A"],["2023-04","Alberta",8256499,"A"],["2023-04","Canada",64838369,"A"],["2023-05","Edmonton, Alberta",3219950,"A"],["2023-05","Calgary, Alberta",3163978,"A"],["2023-05","Alberta",9522238,"A"],["2023-05","Canada",72465329,"A"],["2023-06","Edmonton, Alberta",3079367,"A"],["2023-06","Calgary, Alberta",2989916,"A"],["2023-06","Alberta",9118981,"A"],["2023-06","Canada",70863412,"A"],["2023-07","Edmonton, Alberta",2962582,"A"],["2023-07","Calgary, Alberta",2697232,"A"],["2023-07","Alberta",8556157,"A"],["2023-07","Canada",68124865,"A"],["2023-08","Edmonton, Alberta",3060563,"A"],["2023-08","Calgary, Alberta",2821927,"A"],["2023-08","Alberta",8940366,"A"],["2023-08","Canada",69487092,"A"],["2023-09","Edmonton, Alberta",2894064,"A"],["2023-09","Calgary, Alberta",2691953,"A"],["2023-09","Alberta",8485362,"A"],["2023-09","Canada",67179240,"A"],["2023-10","Edmonton, Alberta",2918237,"A"],["2023-10","Calgary, Alberta",2803395,"A"],["2023-10","Alberta",8678609,"A"],["2023-10","Canada",67675476,"A"],["2023-11","Edmonton, Alberta",2891551,"A"],["2023-11","Calgary, Alberta",2792575,"A"],["2023-11","Alberta",8560596,"A"],["2023-11","Canada",69242876,"A"],["2023-12","Edmonton, Alberta",3026496,"A"],["2023-12","Calgary, Alberta",2819329,"A"],["2023-12","Alberta",8703610,"A"],["2023-12","Canada",69109518,"A"],["2024-01","Edmonton, Alberta",2488115,"A"],["2024-01","Calgary, Alberta",2312030,"A"],["2024-01","Alberta",7203973,"A"],["2024-01","Canada",56795411,"A"],["2024-02","Edmonton, Alberta",2542042,"A"],["2024-02","Calgary, Alberta",2345755,"A"],["2024-02","Alberta",7263225,"A"],["2024-02","Canada",57401452,"A"],["2024-03","Edmonton, Alberta",2945166,"A"],["2024-03","Calgary, Alberta",2597898,"A"],["2024-03","Alberta",8213327,"A"],["2024-03","Canada",64047104,"A"],["2024-04","Edmonton, Alberta",3044043,"A"],["2024-04","Calgary, Alberta",2771339,"A"],["2024-04","Alberta",8664079,"A"],["2024-04","Canada",67576734,"A"],["2024-05","Edmonton, Alberta",3265821,"A"],["2024-05","Calgary, Alberta",2973812,"A"],["2024-05","Alberta",9395144,"A"],["2024-05","Canada",73949545,"A"],["2024-06","Edmonton, Alberta",3035989,"A"],["2024-06","Calgary, Alberta",2787823,"A"],["2024-06","Alberta",8866751,"A"],["2024-06","Canada",69462431,"A"],["2024-07","Edmonton, Alberta",3198599,"A"],["2024-07","Calgary, Alberta",2875746,"A"],["2024-07","Alberta",9151663,"A"],["2024-07","Canada",70864339,"A"],["2024-08","Edmonton, Alberta",3148500,"A"],["2024-08","Calgary, Alberta",2860973,"A"],["2024-08","Alberta",9003333,"A"],["2024-08","Canada",70817113,"A"],["2024-09","Edmonton, Alberta",3002504,"A"],["2024-09","Calgary, Alberta",2717121,"A"],["2024-09","Alberta",8587653,"A"],["2024-09","Canada",66645091,"A"],["2024-10","Edmonton, Alberta",3198757,"A"],["2024-10","Calgary, Alberta",2976824,"A"],["2024-10","Alberta",9300541,"A"],["2024-10","Canada",71758061,"A"],["2024-11","Edmonton, Alberta",3004784,"A"],["2024-11","Calgary, Alberta",2916232,"A"],["2024-11","Alberta",8924433,"A"],["2024-11","Canada",71853986,"A"],["2024-12","Edmonton, Alberta",3085121,"A"],["2024-12","Calgary, Alberta",2976891,"A"],["2024-12","Alberta",9186571,"A"],["2024-12","Canada",73022887,"A"],["2025-01","Edmonton, Alberta",2695125,"A"],["2025-01","Calgary, Alberta",2383599,"A"],["2025-01","Alberta",7708571,"A"],["2025-01","Canada",60525808,"A"],["2025-02","Edmonton, Alberta",2368163,"A"],["2025-02","Calgary, Alberta",2311336,"A"],["2025-02","Alberta",7250012,"A"],["2025-02","Canada",57311827,"A"],["2025-03","Edmonton, Alberta",2942363,"A"],["2025-03","Calgary, Alberta",2765602,"A"],["2025-03","Alberta",8703898,"A"],["2025-03","Canada",67399909,"A"],["2025-04","Edmonton, Alberta",2838798,"A"],["2025-04","Calgary, Alberta",2755131,"A"],["2025-04","Alberta",8626983,"A"],["2025-04","Canada",71181787,"A"],["2025-05","Edmonton, Alberta",3359712,"A"],["2025-05","Calgary, Alberta",3078642,"A"],["2025-05","Alberta",9807800,"A"],["2025-05","Canada",76831848,"A"],["2025-06","Edmonton, Alberta",3216024,"A"],["2025-06","Calgary, Alberta",2890029,"A"],["2025-06","Alberta",9305717,"A"],["2025-06","Canada",73174736,"A"],["2025-07","Edmonton, Alberta",3199154,"A"],["2025-07","Calgary, Alberta",2873274,"A"],["2025-07","Alberta",9347158,"A"],["2025-07","Canada",74134516,"A"],["2025-08","Edmonton, Alberta",3236116,"A"],["2025-08","Calgary, Alberta",2895125,"A"],["2025-08","Alberta",9303697,"A"],["2025-08","Canada",73046640,"A"],["2025-09","Edmonton, Alberta",2826276,"A"],["2025-09","Calgary, Alberta",2846889,"A"],["2025-09","Alberta",8752249,"A"],["2025-09","Canada",69561507,"A"],["2025-10","Edmonton, Alberta",3212968,"A"],["2025-10","Calgary, Alberta",2957719,"A"],["2025-10","Alberta",9316914,"A"],["2025-10","Canada",73101615,"A"],["2025-11","Edmonton, Alberta",3228735,"A"],["2025-11","Calgary, Alberta",2979918,"A"],["2025-11","Alberta",9282851,"A"],["2025-11","Canada",72845874,"A"],["2025-12","Edmonton, Alberta",3212348,"A"],["2025-12","Calgary, Alberta",3083308,"A"],["2025-12","Alberta",9483372,"A"],["2025-12","Canada",74513803,"A"],["2026-01","Edmonton, Alberta",2879679,"A"],["2026-01","Calgary, Alberta",2602973,"A"],["2026-01","Alberta",8202914,"A"],["2026-01","Canada",61583860,"A"],["2026-02","Edmonton, Alberta",2703642,"A"],["2026-02","Calgary, Alberta",2461424,"A"],["2026-02","Alberta",7646476,"A"],["2026-02","Canada",59716252,"A"],["2026-03","Edmonton, Alberta",3277525,"A"],["2026-03","Calgary, Alberta",2980695,"A"],["2026-03","Alberta",9308754,"A"],["2026-03","Canada",70067715,"A"],["2026-04","Edmonton, Alberta",3334077,"A"],["2026-04","Calgary, Alberta",2981165,"A"],["2026-04","Alberta",9365817,"A"],["2026-04","Canada",73338373,"A"],["2026-05","Edmonton, Alberta",3640053,"A"],["2026-05","Calgary, Alberta",3330910,"A"],["2026-05","Alberta",10576402,"A"],["2026-05","Canada",79927499,"A"],["2026-06","Edmonton, Alberta",3534746,"A"],["2026-06","Calgary, Alberta",3152007,"A"],["2026-06","Alberta",10166657,"A"],["2026-06","Canada",78475890,"A"],["2026-07","Edmonton, Alberta",3583120,"A"],["2026-07","Calgary, Alberta",3131691,"B"],["2026-07","Alberta",10231135,"A"],["2026-07","Canada",77817236,"A"]];
+  const byKey = new Map(observations.map(([month, geo, value, status]) => [month + '|' + geo, {value, status}]));
+  const allMonths = [...new Set(observations.map(r => r[0]))].sort();
+  const displayMonths = allMonths.filter(m => m >= '2024-01');
+  const monthSelect = document.getElementById('month');
+  const monthLabel = m => new Date(m + '-01T12:00:00Z').toLocaleDateString('en-CA', {month:'long', year:'numeric', timeZone:'UTC'});
+  displayMonths.slice().reverse().forEach(m => { const option = document.createElement('option'); option.value=m; option.textContent=monthLabel(m); monthSelect.append(option); });
+  const get = (month, geo) => { const found=byKey.get(month+'|'+geo); if(!found) throw Error('Missing data: '+month+' '+geo); return found; };
+  const previousYear = m => String(Number(m.slice(0,4))-1) + m.slice(4);
+  const growth = (m, geo) => 100*(get(m,geo).value/get(previousYear(m),geo).value-1);
+  const billion = n => '$'+(n/1e6).toFixed(2)+'B';
+  const pct = n => (n>=0?'+':'')+n.toFixed(2)+'%';
+  const set = (id,text) => { document.getElementById(id).textContent=text; };
+  function renderTrend(endMonth) {
+    const months=displayMonths.filter(m=>m<=endMonth).slice(-25);
+    const ed=months.map(m=>growth(m,'Edmonton, Alberta'));
+    const ca=months.map(m=>growth(m,'Calgary, Alberta'));
+    const values=[...ed,...ca]; const min=Math.min(-10,Math.floor(Math.min(...values)/5)*5); const max=Math.max(20,Math.ceil(Math.max(...values)/5)*5);
+    const left=48,right=700,top=14,bottom=234;
+    const x=i=>left+(right-left)*i/Math.max(1,months.length-1);
+    const y=v=>bottom-(v-min)*(bottom-top)/(max-min);
+    const svg=document.getElementById('trend'); svg.replaceChildren();
+    const NS='http://www.w3.org/2000/svg';
+    const add=(type,attrs,text)=>{ const el=document.createElementNS(NS,type); Object.entries(attrs).forEach(([key,val])=>el.setAttribute(key,String(val))); if(text!==undefined) el.textContent=text; svg.append(el); return el; };
+    for(let tick=Math.ceil(min/5)*5;tick<=max;tick+=5){ add('line',{x1:left,x2:right,y1:y(tick),y2:y(tick),stroke:tick===0?'#93a1b5':'#e6ecf4','stroke-width':tick===0?1.5:1});add('text',{x:35,y:y(tick)+4,'text-anchor':'end',fill:'#708099','font-size':11},tick+'%'); }
+    const labels=[0,Math.round((months.length-1)/2),months.length-1];
+    [...new Set(labels)].forEach(i=>add('text',{x:x(i),y:263,'text-anchor':i===0?'start':i===months.length-1?'end':'middle',fill:'#708099','font-size':11},months[i]));
+    for(const [series,color,name] of [[ed,'#1d5db5','Edmonton'],[ca,'#e57939','Calgary']]){
+      add('polyline',{points:series.map((v,i)=>x(i)+','+y(v)).join(' '),fill:'none',stroke:color,'stroke-width':3.2,'stroke-linejoin':'round','stroke-linecap':'round'});
+      add('circle',{cx:x(series.length-1),cy:y(series.at(-1)),r:4.5,fill:color});
+      const title=document.createElementNS(NS,'title');title.textContent=name+' '+monthLabel(endMonth)+': '+pct(series.at(-1));svg.lastChild.append(title);
+    }
+    svg.setAttribute('aria-label','Year over year retail sales growth through '+monthLabel(endMonth)+'. Edmonton '+pct(ed.at(-1))+', Calgary '+pct(ca.at(-1))+'.');
+  }
+  function render(){
+    const m=monthSelect.value; const ed=get(m,'Edmonton, Alberta'); const ca=get(m,'Calgary, Alberta'); const ab=get(m,'Alberta');
+    const edGrowth=growth(m,'Edmonton, Alberta'),caGrowth=growth(m,'Calgary, Alberta'),share=100*ed.value/ab.value;
+    set('edmonton-sales',billion(ed.value));set('edmonton-yoy',pct(edGrowth));set('edmonton-share',share.toFixed(2)+'%');set('calgary-sales',billion(ca.value));
+    set('calgary-yoy',pct(caGrowth)+' from last year');
+    document.getElementById('edmonton-yoy').className='number '+(edGrowth>=0?'up':'down');
+    const maximum=ab.value;for(const [prefix,record] of [['edmonton',ed],['calgary',ca],['alberta',ab]]){set(prefix+'-bar-label',billion(record.value));document.getElementById(prefix+'-bar').style.width=(100*record.value/maximum).toFixed(1)+'%';}
+    set('insight-text',`In ${monthLabel(m)}, Edmonton recorded ${billion(ed.value)} in retail sales, ${pct(edGrowth)} versus the same month a year earlier. Calgary recorded ${billion(ca.value)} (${pct(caGrowth)} year over year). Edmonton represented ${share.toFixed(2)}% of Alberta's ${billion(ab.value)} total. Source quality statuses for this month: Edmonton ${ed.status||'unflagged'}, Calgary ${ca.status||'unflagged'}, Alberta ${ab.status||'unflagged'}.`);
+    renderTrend(m);
+  }
+  monthSelect.addEventListener('change',render);render();
+  </script>
+</body>
+</html>
