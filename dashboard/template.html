@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Edmonton Retail Pulse | Portfolio dashboard preview</title>
+  <style>
+    :root { font-family: Inter, "Segoe UI", Arial, sans-serif; color: #172b4d; background: #f5f7fb; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    .shell { max-width: 1260px; margin: auto; padding: 34px 30px 58px; }
+    .eyebrow { color: #3366a6; font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    header { display: flex; justify-content: space-between; align-items: end; gap: 20px; margin-bottom: 28px; }
+    h1 { margin: 9px 0 9px; font-size: clamp(30px, 3.2vw, 45px); letter-spacing: -.045em; line-height: 1.12; }
+    .subtitle { margin: 0; max-width: 640px; color: #627189; line-height: 1.55; }
+    .badge { flex-shrink: 0; border: 1px solid #d5e4f7; background: #eaf3ff; padding: 11px 15px; border-radius: 100px; color: #215b9c; font-size: 12px; font-weight: 750; }
+    .toolbar { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 18px; }
+    .toolbar label { color: #50617a; font-weight: 700; font-size: 13px; }
+    select { appearance: none; background: #fff; color: #172b4d; border: 1px solid #d8e2f0; border-radius: 11px; padding: 11px 39px 11px 14px; min-width: 175px; font: inherit; font-weight: 650; cursor: pointer; }
+    .select-wrap { position: relative; }
+    .select-wrap:after { content: "⌄"; position: absolute; right: 14px; top: 7px; pointer-events: none; color: #50617a; font-size: 20px; }
+    .asof { margin-left: auto; color: #697990; font-size: 12px; }
+    .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 16px; }
+    .card { background: #fff; border: 1px solid #e3eaf4; box-shadow: 0 8px 32px #19365909; border-radius: 17px; }
+    .kpi { padding: 21px 21px 20px; min-height: 136px; }
+    .kpi .label { color: #627189; font-size: 12px; font-weight: 750; text-transform: uppercase; letter-spacing: .065em; }
+    .kpi .number { margin-top: 15px; font-size: clamp(25px, 2.7vw, 37px); font-weight: 800; letter-spacing: -.045em; font-variant-numeric: tabular-nums; }
+    .kpi .detail { color: #697990; font-size: 12px; margin-top: 7px; }
+    .up { color: #218465; } .down { color: #c65252; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(300px, 1fr); gap: 16px; }
+    .panel { padding: 24px; min-width: 0; }
+    .panel h2 { margin: 0 0 6px; font-size: 18px; letter-spacing: -.025em; }
+    .panel .desc { color: #697990; font-size: 13px; line-height: 1.5; margin: 0 0 15px; }
+    .legend { display: flex; gap: 18px; font-size: 12px; color: #4f6079; font-weight: 700; }
+    .legend span:before { content: ""; display: inline-block; width: 18px; height: 3px; margin: 0 7px 3px 0; background: var(--line); border-radius: 3px; }
+    svg { width: 100%; height: auto; overflow: visible; }
+    .chart-area { height: 300px; display: flex; align-items: center; }
+    .bar-label { display: flex; justify-content: space-between; margin: 24px 0 9px; font-size: 13px; font-weight: 700; }
+    .bar-track { width: 100%; height: 20px; background: #edf2f8; border-radius: 6px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 6px; }
+    .insight { margin-top: 16px; padding: 21px 24px; border-left: 4px solid #1d5db5; }
+    .insight h2 { margin: 0 0 8px; font-size: 15px; }
+    .insight p { margin: 0; color: #4c607d; line-height: 1.6; font-size: 13px; }
+    footer { margin-top: 20px; color: #63738a; font-size: 11px; line-height: 1.6; }
+    footer a { color: #1d5db5; }
+    @media (max-width: 900px) { .kpis { grid-template-columns: repeat(2,1fr); } .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 550px) { .shell { padding: 24px 15px 42px; } header { display: block; } .badge { display: inline-block; margin-top: 18px; } .kpis { gap: 9px; } .kpi { min-height: 125px; padding: 16px; } .kpi .number { font-size: 25px; } .panel { padding: 18px; } .asof { margin-left: 0; width: 100%; } }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header>
+      <div><div class="eyebrow">Public data · Business intelligence</div><h1>Edmonton Retail Pulse</h1><p class="subtitle">A local view of monthly retail sales, annual growth, and Edmonton’s share of Alberta’s total.</p></div>
+      <span class="badge">Portfolio dashboard preview</span>
+    </header>
+    <div class="toolbar"><label for="month">Reporting month</label><div class="select-wrap"><select id="month" aria-label="Reporting month"></select></div><span class="asof">Statistics Canada snapshot: September 24, 2026</span></div>
+    <section class="kpis" aria-label="Key measures">
+      <div class="card kpi"><div class="label">Edmonton sales</div><div class="number" id="edmonton-sales"></div><div class="detail">CAD, selected month</div></div>
+      <div class="card kpi"><div class="label">Edmonton annual growth</div><div class="number" id="edmonton-yoy"></div><div class="detail">Same month one year earlier</div></div>
+      <div class="card kpi"><div class="label">Edmonton share of Alberta</div><div class="number" id="edmonton-share"></div><div class="detail">Edmonton CMA ÷ Alberta province</div></div>
+      <div class="card kpi"><div class="label">Calgary sales</div><div class="number" id="calgary-sales"></div><div class="detail" id="calgary-yoy"></div></div>
+    </section>
+    <section class="grid" aria-label="Retail charts">
+      <div class="card panel"><h2>Annual growth by city</h2><p class="desc">Each point compares unadjusted sales with the same month in the prior year. The line stops at the selected month.</p><div class="legend"><span style="--line:#1d5db5">Edmonton</span><span style="--line:#e57939">Calgary</span></div><div class="chart-area"><svg id="trend" viewBox="0 0 720 280" role="img" aria-label="Edmonton and Calgary year over year retail sales growth"></svg></div></div>
+      <div class="card panel"><h2>City sales comparison</h2><p class="desc">Selected month · CAD billions</p><div class="bar-label"><span>Edmonton</span><span id="edmonton-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="edmonton-bar" style="background:#1d5db5"></div></div><div class="bar-label"><span>Calgary</span><span id="calgary-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="calgary-bar" style="background:#e57939"></div></div><div class="bar-label"><span>Alberta</span><span id="alberta-bar-label"></span></div><div class="bar-track"><div class="bar-fill" id="alberta-bar" style="background:#8393aa"></div></div><p class="desc" style="margin-top:28px">City amounts are part of Alberta’s provincial total, so the bars are comparisons rather than additive categories.</p></div>
+    </section>
+    <section class="card insight"><h2>Reading the numbers</h2><p id="insight-text"></p></section>
+    <footer>Source: Statistics Canada, <a href="https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2010005601">table 20-10-0056-01</a>, snapshot released September 24, 2026. Amounts originate in CAD thousands and are converted to billions. Unadjusted monthly data are subject to revision; check the latest release for current figures. Independent portfolio visualization. This interactive HTML preview is not a Power BI report.</footer>
+  </main>
+  <script>
+  const observations = __EMBEDDED_DATA__;
+  const byKey = new Map(observations.map(([month, geo, value, status]) => [month + '|' + geo, {value, status}]));
+  const allMonths = [...new Set(observations.map(r => r[0]))].sort();
+  const displayMonths = allMonths.filter(m => m >= '2024-01');
+  const monthSelect = document.getElementById('month');
+  const monthLabel = m => new Date(m + '-01T12:00:00Z').toLocaleDateString('en-CA', {month:'long', year:'numeric', timeZone:'UTC'});
+  displayMonths.slice().reverse().forEach(m => { const option = document.createElement('option'); option.value=m; option.textContent=monthLabel(m); monthSelect.append(option); });
+  const get = (month, geo) => { const found=byKey.get(month+'|'+geo); if(!found) throw Error('Missing data: '+month+' '+geo); return found; };
+  const previousYear = m => String(Number(m.slice(0,4))-1) + m.slice(4);
+  const growth = (m, geo) => 100*(get(m,geo).value/get(previousYear(m),geo).value-1);
+  const billion = n => '$'+(n/1e6).toFixed(2)+'B';
+  const pct = n => (n>=0?'+':'')+n.toFixed(2)+'%';
+  const set = (id,text) => { document.getElementById(id).textContent=text; };
+  function renderTrend(endMonth) {
+    const months=displayMonths.filter(m=>m<=endMonth).slice(-25);
+    const ed=months.map(m=>growth(m,'Edmonton, Alberta'));
+    const ca=months.map(m=>growth(m,'Calgary, Alberta'));
+    const values=[...ed,...ca]; const min=Math.min(-10,Math.floor(Math.min(...values)/5)*5); const max=Math.max(20,Math.ceil(Math.max(...values)/5)*5);
+    const left=48,right=700,top=14,bottom=234;
+    const x=i=>left+(right-left)*i/Math.max(1,months.length-1);
+    const y=v=>bottom-(v-min)*(bottom-top)/(max-min);
+    const svg=document.getElementById('trend'); svg.replaceChildren();
+    const NS='http://www.w3.org/2000/svg';
+    const add=(type,attrs,text)=>{ const el=document.createElementNS(NS,type); Object.entries(attrs).forEach(([key,val])=>el.setAttribute(key,String(val))); if(text!==undefined) el.textContent=text; svg.append(el); return el; };
+    for(let tick=Math.ceil(min/5)*5;tick<=max;tick+=5){ add('line',{x1:left,x2:right,y1:y(tick),y2:y(tick),stroke:tick===0?'#93a1b5':'#e6ecf4','stroke-width':tick===0?1.5:1});add('text',{x:35,y:y(tick)+4,'text-anchor':'end',fill:'#708099','font-size':11},tick+'%'); }
+    const labels=[0,Math.round((months.length-1)/2),months.length-1];
+    [...new Set(labels)].forEach(i=>add('text',{x:x(i),y:263,'text-anchor':i===0?'start':i===months.length-1?'end':'middle',fill:'#708099','font-size':11},months[i]));
+    for(const [series,color,name] of [[ed,'#1d5db5','Edmonton'],[ca,'#e57939','Calgary']]){
+      add('polyline',{points:series.map((v,i)=>x(i)+','+y(v)).join(' '),fill:'none',stroke:color,'stroke-width':3.2,'stroke-linejoin':'round','stroke-linecap':'round'});
+      add('circle',{cx:x(series.length-1),cy:y(series.at(-1)),r:4.5,fill:color});
+      const title=document.createElementNS(NS,'title');title.textContent=name+' '+monthLabel(endMonth)+': '+pct(series.at(-1));svg.lastChild.append(title);
+    }
+    svg.setAttribute('aria-label','Year over year retail sales growth through '+monthLabel(endMonth)+'. Edmonton '+pct(ed.at(-1))+', Calgary '+pct(ca.at(-1))+'.');
+  }
+  function render(){
+    const m=monthSelect.value; const ed=get(m,'Edmonton, Alberta'); const ca=get(m,'Calgary, Alberta'); const ab=get(m,'Alberta');
+    const edGrowth=growth(m,'Edmonton, Alberta'),caGrowth=growth(m,'Calgary, Alberta'),share=100*ed.value/ab.value;
+    set('edmonton-sales',billion(ed.value));set('edmonton-yoy',pct(edGrowth));set('edmonton-share',share.toFixed(2)+'%');set('calgary-sales',billion(ca.value));
+    set('calgary-yoy',pct(caGrowth)+' from last year');
+    document.getElementById('edmonton-yoy').className='number '+(edGrowth>=0?'up':'down');
+    const maximum=ab.value;for(const [prefix,record] of [['edmonton',ed],['calgary',ca],['alberta',ab]]){set(prefix+'-bar-label',billion(record.value));document.getElementById(prefix+'-bar').style.width=(100*record.value/maximum).toFixed(1)+'%';}
+    set('insight-text',`In ${monthLabel(m)}, Edmonton recorded ${billion(ed.value)} in retail sales, ${pct(edGrowth)} versus the same month a year earlier. Calgary recorded ${billion(ca.value)} (${pct(caGrowth)} year over year). Edmonton represented ${share.toFixed(2)}% of Alberta's ${billion(ab.value)} total. Source quality statuses for this month: Edmonton ${ed.status||'unflagged'}, Calgary ${ca.status||'unflagged'}, Alberta ${ab.status||'unflagged'}.`);
+    renderTrend(m);
+  }
+  monthSelect.addEventListener('change',render);render();
+  </script>
+</body>
+</html>
