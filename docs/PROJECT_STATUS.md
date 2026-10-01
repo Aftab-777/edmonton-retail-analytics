@@ -10,13 +10,13 @@
 
 ## Current Desktop handoff
 
-The source CSV was imported on a Windows computer, with `month` typed as Date. The disconnected `Report Month` table and a dropdown month slicer were created. A local report file was saved in the cloned repository's `powerbi` folder; that local file has not yet been checked or published here. The latest selected month was July 2026. If a `Retail Sales CAD` measure was created manually, the TMDL script replaces its definition with the checked version.
+The source CSV was imported on a Windows computer, with `month` typed as Date. The disconnected `Report Month` table and a dropdown month slicer were created. A local report file was saved in the cloned repository's `powerbi` folder; that local file has not yet been checked or published here. The latest selected month was July 2026. On October 1, 2026, the corrected TMDL script was successfully applied in Power BI Desktop: 11 measures, zero reported problems. The selected-month validation table matched all five July checks: Edmonton CAD 3,583,120,000; Calgary CAD 3,131,691,000; Edmonton annual growth 12.00%; Calgary 8.99%; and Edmonton share of Alberta 35.02%. The visuals still need formatting and the historical growth chart still needs a Desktop check. If a `Retail Sales CAD` measure was created manually, the TMDL script replaces its definition with the checked version.
 
 ## Next when working in Power BI Desktop
 
 1. In GitHub Desktop, **Fetch origin**, then **Pull origin** if prompted, to receive the new `powerbi/retail-measures.tmdl` file. Do not overwrite the local report file.
-2. Open the locally saved report in Power BI Desktop. In **TMDL view**, paste the entire script from [`powerbi/retail-measures.tmdl`](../powerbi/retail-measures.tmdl), preview and apply; Power BI Desktop will validate it. Save the local report.
-3. Use [`powerbi/BUILD_GUIDE.md`](../powerbi/BUILD_GUIDE.md) and the interactive preview to create the visuals, then compare all five July 2026 values above. Check the same-month-prior-year growth calculation.
+2. The current local report already has all 11 measures applied and its July 2026 headline results checked. For a fresh build only, paste [`powerbi/retail-measures.tmdl`](../powerbi/retail-measures.tmdl) into **TMDL view**, preview, apply and save.
+3. Remove the extra geography field from the selected-month validation table to avoid repeating the fixed city measures. Use [`powerbi/BUILD_GUIDE.md`](../powerbi/BUILD_GUIDE.md) and the interactive preview to finish the page and verify the historical growth chart.
 4. Add a verified report screenshot to `docs/`; review GitHub Desktop's changed files before pushing the completed report.
 5. Walk through the source, each measure, and the limits of unadjusted/revisable data before using the project in an interview.
 
