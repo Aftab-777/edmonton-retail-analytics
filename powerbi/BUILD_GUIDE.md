@@ -16,7 +16,7 @@ Place `Report Month[month]` (the date field, not its automatic date hierarchy) i
 
 ## Add measures
 
-For a faster setup, open [`retail-measures.tmdl`](retail-measures.tmdl), copy the entire file, open **TMDL view** in Power BI Desktop, paste into an empty script tab, choose **Preview** to review the changes and then **Apply**. This adds all measures to the existing `retail_sales_monthly` table in one operation; it assumes the source table and the disconnected `Report Month` table above already exist. Save the report. Power BI Desktop must validate the script before you use the results. The formulas are also shown below for study or manual entry via **Modeling → New measure**. The source values are thousands of Canadian dollars.
+For a faster setup, open [`retail-measures.tmdl`](retail-measures.tmdl), copy the entire file, open **TMDL view** in Power BI Desktop, paste into an empty script tab, choose **Preview** to review the changes and then **Apply**. This adds all measures to the existing `retail_sales_monthly` table in one operation; it assumes the source table and the disconnected `Report Month` table above already exist. Save the report. The script uses self-contained measure expressions so newly introduced measure names do not trigger unresolved-reference diagnostics. Power BI Desktop must validate the script before you use the results. The formulas are also shown below for study or manual entry via **Modeling → New measure**. The source values are thousands of Canadian dollars.
 
 ```DAX
 Retail Sales CAD =
@@ -59,12 +59,12 @@ RETURN
     )
 
 Edmonton Sales Last Year CAD =
-VAR PreviousMonth = EDATE ( [Selected Month], -12 )
+VAR PriorYearMonth = EDATE ( [Selected Month], -12 )
 RETURN
     CALCULATE (
         [Retail Sales CAD],
         REMOVEFILTERS ( retail_sales_monthly ),
-        retail_sales_monthly[month] = PreviousMonth,
+        retail_sales_monthly[month] = PriorYearMonth,
         retail_sales_monthly[geography] = "Edmonton, Alberta"
     )
 
