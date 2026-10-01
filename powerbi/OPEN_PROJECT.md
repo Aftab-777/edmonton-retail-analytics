@@ -1,20 +1,29 @@
-# Open the prepared Power BI report
+# Open Edmonton Retail Pulse in Power BI Desktop
 
-The native project in [`project/`](project/) contains the report layout, five headline cards, a month dropdown, an Edmonton–Calgary growth chart, a selected-month sales comparison and a second page with the source records and calculation notes. It uses the same Statistics Canada snapshot and the eleven measures already checked in Power BI Desktop. One additional measure supplies the selected-month comparison chart.
+The native project contains the report layout, five headline cards, a month dropdown, an Edmonton–Calgary annual-growth chart, a selected-month sales comparison, and a source data/notes page. Its twelve measures use the same Statistics Canada snapshot as the SQL analysis and web demo.
 
-Use the Power BI Desktop already installed on your computer. Opening and editing this local project does not require a Power BI Pro subscription, a new application or a paid custom visual. Microsoft documents [Power BI projects](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview) and [the report format](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-report).
+Use Power BI Desktop on Windows. Microsoft provides [Desktop download guidance](https://learn.microsoft.com/en-us/power-bi/fundamentals/desktop-get-the-desktop) and documents [Power BI projects](https://learn.microsoft.com/en-us/power-bi/developer/projects/projects-overview). Opening and editing this local report does not require a Power BI Pro subscription or a paid custom visual.
 
-## Open it
+## Option 1: use the repository already on your computer
 
-1. Save the report you currently have open in Power BI Desktop. The prepared project is in its own folder and does not replace that file.
-2. In **GitHub Desktop**, select `edmonton-retail-analytics`, click **Fetch origin**, then **Pull origin** if it appears.
-3. Choose **Repository → Show in Explorer**. Open **powerbi → project**, then double-click **Edmonton-Retail-Pulse.pbip**. Keep both the `Retail.Report` and `Retail.SemanticModel` folders beside this file; opening only the small `.pbip` file downloaded from GitHub will not work.
-4. In Power BI Desktop choose **Home → Refresh**. This loads the public data snapshot embedded in the project. It does not need a CSV path on your computer or a web data connection. If the report opens without values before this refresh, that is expected: a local data cache is not included in Git.
-5. On **Retail overview**, select **Jul 2026** in the **Report month** dropdown and check the figures below. Open the **Source data & notes** page as well.
+1. Save any report you currently have open in Power BI Desktop.
+2. In **GitHub Desktop**, select `edmonton-retail-analytics`. Click **Pull origin** if it is shown, or **Fetch origin** and then **Pull origin** if new changes are found.
+3. Choose **Repository → Show in Explorer**.
+4. Open **powerbi → project → Edmonton-Retail-Pulse.pbip**. Keep `Retail.Report` and `Retail.SemanticModel` beside the `.pbip` file.
+5. In Power BI Desktop, choose **Home → Refresh** to load the embedded data snapshot. A local data cache is intentionally not included in Git.
 
-If Power BI shows an error, capture its full wording before changing anything. The exact file or field named in the error will help identify the correction.
+## Option 2: use the complete ZIP
 
-## Check the report in Desktop
+1. Download [`Edmonton-Retail-Pulse-Project.zip`](Edmonton-Retail-Pulse-Project.zip).
+2. **Extract all** to a normal folder; do not open the project while it is still inside the ZIP.
+3. In the extracted `Edmonton-Retail-Pulse-Project` folder, open **Edmonton-Retail-Pulse.pbip**.
+4. Choose **Home → Refresh** in Power BI Desktop.
+
+Downloading only the small `.pbip` file is insufficient: its adjacent report and semantic model folders are required. The ZIP includes all three together.
+
+## Verify the figures and interaction
+
+On **Retail overview**, select July 2026 in **Report month**. The slicer may display `01-07-2026`: that is the first day used to represent the July monthly record, not a single day's sales.
 
 | July 2026 item | Expected value |
 | --- | ---: |
@@ -23,30 +32,26 @@ If Power BI shows an error, capture its full wording before changing anything. T
 | Edmonton share of Alberta | 35.02% |
 | Calgary sales | CAD 3,131,691,000; approximately 3.132 billion on the card |
 | Calgary annual growth | 8.99% |
-| Alberta sales in the comparison chart | CAD 10,231,135,000; approximately 10.231 billion |
+| Alberta sales in the comparison | CAD 10,231,135,000; approximately 10.231 billion |
 
-The growth chart must contain only Edmonton and Calgary. Its July 2026 points should be **12.00%** and **8.99%**. Growth for 2023 must be blank because the snapshot has no 2022 figures. Select **Jun 2026** next: the cards and sales comparison should change, while the growth chart should keep its complete history. Edmonton's June annual growth should be **9.91%**. Return to July for the final screenshot.
+The growth chart contains only Edmonton and Calgary. July's points should be 12.00% and 8.99%; 2023 growth is blank because there is no 2022 data. Select June next: headline values and the sales comparison should change, while the trend keeps its history. Edmonton's June annual growth is **9.91%**. Return to July for the main demonstration.
 
-The source table displays all 172 records, rather than only the selected month. It intentionally has no grand total: the city, province and country observations overlap.
+Open **Source data & notes** before a presentation. It displays the full 172-record snapshot rather than only the selected month. It has no grand total because the city, province, and country figures overlap. Check label readability and the source notes.
 
-Check that all card values, headings, axis labels and notes are readable. The project has passed JSON schema, snapshot integrity, field reference and layout-bound checks. Its native model parsing, refresh, DAX execution and visual rendering still require this Desktop check; those checks cannot be completed by inspecting the project files alone.
+The project opened and refreshed in Desktop on October 1, 2026. The five July cards and both charts are visible in the [published native screenshot](../docs/screenshots/retail-overview-july-2026.png). The project owner confirmed month switching. A native screenshot of the source page remains an optional additional check; see the [validation record](../docs/VALIDATION.md).
 
-## Save the final report
+## Optional single-file export
 
-After the native checks pass, choose **File → Save as** and save a **Power BI file (.pbix)** in the repository's `powerbi` folder, for example `Edmonton-Retail-Pulse-Final.pbix`. Take a screenshot of **Retail overview** and add it to `docs/`. Review the changed files in GitHub Desktop, then commit and push the verified report and screenshot. Update the project checkpoint to record the completed Desktop check.
+The `.pbip` project is the published native deliverable. For a single-file copy, use **File → Save as → Power BI file (.pbix)** in Desktop, for example `Edmonton-Retail-Pulse-Final.pbix`. Verify it before adding it to GitHub. A locally saved file does not appear on GitHub until it is committed and pushed.
 
-The `.pbip` project is already suitable for version control. The `.pbix` export makes the checked report easier to share as one file. GitHub stores both formats; Power BI Desktop opens and renders the native report.
+## Refresh and rebuild
 
-## Data refresh and reproducibility
+The project embeds the exact committed CSV. It does not need a CSV path on your computer or a web data connection. **Refresh** loads the fixed January 2023–July 2026 snapshot; it does not download a newer Statistics Canada release.
 
-This is a fixed snapshot: January 2023–July 2026, accessed September 27, 2026. **Refresh** loads that snapshot into the local Power BI model; it does not download a newer Statistics Canada release.
-
-From the repository root, rebuild the project definitions with:
+To regenerate project definitions, close the project in Desktop and run this from the repository root:
 
 ```bash
 python scripts/build_powerbi_project.py
 ```
 
-The builder uses Python's standard library, embeds the exact committed CSV and reuses `powerbi/retail-measures.tmdl`. Build while the prepared project is closed in Desktop. The embedded snapshot avoids machine-specific paths. The disconnected month table makes the cards respond to month selection without reducing the historical chart to one point.
-
-The comparison chart uses `Selected Month Sales CAD`, which filters the fact table to the chosen month while preserving the geography on its axis. Alberta includes both cities, so the bars must not be added. Source amounts are multiplied by 1,000 to convert thousands of CAD to CAD; growth compares the same month a year earlier. Unadjusted sales can be revised and do not isolate inflation or seasonal effects.
+The builder uses Python's standard library. The disconnected month picker lets the cards change without reducing the historical trend to one point. `Selected Month Sales CAD` keeps the geography axis while applying the selected month. Source amounts are multiplied by 1,000 to convert thousands of CAD to CAD. Alberta includes both cities; do not add the bars together.

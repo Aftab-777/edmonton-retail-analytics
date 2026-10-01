@@ -1,26 +1,27 @@
-# Project checkpoint
+# Project checkpoint — October 1, 2026
 
-## Completed
+## Published deliverables
 
-- Public Statistics Canada data: 172 monthly observations for Edmonton, Calgary, Alberta, and Canada, January 2023–July 2026.
-- Reproducible data extraction and working SQLite analysis.
-- Annual growth chart and a self-contained interactive dashboard preview with month selection.
-- Power BI Desktop build instructions, a one-apply TMDL measure script, visual layout, and theme JSON.
-- Prepared native Power BI project: five headline cards, month selector, city growth chart, selected-month sales comparison, and source data page. Includes the exact 172-row snapshot and the eleven measures previously checked in Desktop, plus one comparison measure.
-- July 2026 checks: Edmonton CAD 3.583 billion, Calgary CAD 3.132 billion, Edmonton annual growth 12.00%, Calgary 8.99%, Edmonton share of Alberta 35.02%.
+- A 172-row Statistics Canada snapshot for January 2023–July 2026: Edmonton, Calgary, Alberta, and Canada.
+- Reproducible Python extraction, SQLite analysis, and an annual growth chart.
+- An interactive [web demo](https://aftab-777.github.io/edmonton-retail-analytics/) using the same snapshot.
+- A native [Power BI project](../powerbi/project/) with two pages, twelve measures, five headline cards, a month selector, a city annual-growth chart, a selected-month sales comparison, and source records/calculation notes.
+- A [complete project ZIP](../powerbi/Edmonton-Retail-Pulse-Project.zip), [opening instructions](../powerbi/OPEN_PROJECT.md), [walkthrough](PROJECT_WALKTHROUGH.md), and [validation record](VALIDATION.md).
+- An unchanged [native Desktop screenshot](screenshots/retail-overview-july-2026.png) showing the July overview.
 
-## Current Desktop handoff
+## Verification completed
 
-The source CSV was imported on a Windows computer, with `month` typed as Date. The disconnected `Report Month` table and a dropdown month slicer were created, and a local `.pbix` was saved in the repository's `powerbi` folder. On October 1, 2026, the corrected TMDL script applied successfully: 11 measures, zero reported problems. The validation table matched all five July checks: Edmonton CAD 3,583,120,000; Calgary CAD 3,131,691,000; Edmonton annual growth 12.00%; Calgary 8.99%; and Edmonton share of Alberta 35.02%.
+On October 1, 2026, the prepared `.pbip` project opened in Power BI Desktop and refreshed successfully. The supplied native screenshot shows all five July headline values and both populated charts. The July cards match the CSV and SQL: Edmonton CAD 3.583 billion, Edmonton annual growth 12.00%, Edmonton share of Alberta 35.02%, Calgary CAD 3.132 billion, and Calgary annual growth 8.99%. The comparison chart shows Alberta CAD 10.231 billion.
 
-The separate project at [`powerbi/project/Edmonton-Retail-Pulse.pbip`](../powerbi/project/Edmonton-Retail-Pulse.pbip) supplies the report layout without requiring each visual to be assembled manually. Its 34 schema-bound JSON files pass Microsoft's PBIP/PBIR schemas; its theme passes the theme schema. Snapshot integrity, original measure preservation, visual field references and roles, page bounds and Windows path lengths have been checked. On October 1, 2026, the prepared project opened in Power BI Desktop and refreshed successfully. The native overview rendered all five July cards correctly: Edmonton CAD 3.583 billion, Edmonton annual growth 12.00%, Edmonton share of Alberta 35.02%, Calgary CAD 3.132 billion and Calgary annual growth 8.99%. Both charts populated; the comparison displayed Alberta CAD 10.231 billion, and the city growth chart displayed Edmonton and Calgary from January 2024 onward. Month selection behaviour, the source data page and final layout review remain to be checked. The earlier local `.pbix` is not overwritten.
+The project owner confirmed the month-switching check worked after selecting June: the cards and comparison changed, while the trend retained its history. This confirmation is distinct from the supplied July screenshot; a June screenshot was not supplied.
 
-## Next when working in Power BI Desktop
+The native project passed Microsoft JSON schema and theme validation, embedded-snapshot integrity checks, visual field-reference and layout-bound checks, and Windows path-length checks. A fresh Statistics Canada archive download on October 1 matched all 172 committed sales values. See [VALIDATION.md](VALIDATION.md) for the scope of each check.
 
-1. In GitHub Desktop, **Fetch origin**, then **Pull origin** if prompted. Choose **Repository → Show in Explorer**.
-2. Open **powerbi → project → Edmonton-Retail-Pulse.pbip**. In Power BI Desktop choose **Home → Refresh** to load the embedded snapshot.
-3. Follow [`powerbi/OPEN_PROJECT.md`](../powerbi/OPEN_PROJECT.md). Verify all five July figures, both July growth chart points, and month selection behaviour. Check the source page and label readability.
-4. After the Desktop checks pass, save a final `.pbix`, add a verified report screenshot to `docs/`, and review GitHub Desktop's changed files before committing and pushing them.
-5. Walk through the source, each measure, and the limits of unadjusted/revisable data before using the project in an interview.
+## Optional next improvements
 
-The repository contains both a web dashboard preview and a native Power BI project. A verified `.pbix` export and native report screenshot remain pending. The month picker selects a reporting month; the embedded data is a fixed snapshot and does not fetch a newer release when refreshed.
+1. Before a live presentation, open **Source data & notes**, check its labels, and take a second native screenshot. Its definitions and records have been checked, but no native screenshot of that page has been supplied.
+2. Save an optional **Power BI file (.pbix)** from Desktop if a recruiter wants a single-file copy. The earlier locally saved `.pbix` is not part of this published repository.
+3. Practise explaining the source units, twelve measures, disconnected month selector, SQL validation, and data limitations.
+4. For a future release, review revised source values and rebuild the snapshot, web demo, and native project together.
+
+The published `.pbip` and its adjacent folders are the native Power BI deliverable. GitHub Pages hosts the separate HTML demo. The embedded snapshot is fixed; Desktop **Refresh** does not download newer source data. Power BI service deployment and scheduled cloud refresh are outside the current project.
