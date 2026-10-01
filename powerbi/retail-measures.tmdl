@@ -1,89 +1,80 @@
 createOrReplace
 
 	ref table retail_sales_monthly
-		measure 'Retail Sales CAD' = SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000
+
+		measure 'Retail Sales CAD' =
+				SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000
 			formatString: "#,0"
 
 		measure 'Selected Month' =
-				COALESCE (
-				    SELECTEDVALUE ( 'Report Month'[month] ),
-				    CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) )
-				)
+				COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
 			formatString: "mmm yyyy"
 
 		measure 'Edmonton Sales CAD' =
-				VAR TargetMonth = [Selected Month]
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
 				RETURN
-				    CALCULATE (
-				        [Retail Sales CAD],
-				        REMOVEFILTERS ( retail_sales_monthly ),
-				        retail_sales_monthly[month] = TargetMonth,
-				        retail_sales_monthly[geography] = "Edmonton, Alberta"
-				    )
+				    CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Edmonton, Alberta" )
 			formatString: "#,0"
 
 		measure 'Calgary Sales CAD' =
-				VAR TargetMonth = [Selected Month]
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
 				RETURN
-				    CALCULATE (
-				        [Retail Sales CAD],
-				        REMOVEFILTERS ( retail_sales_monthly ),
-				        retail_sales_monthly[month] = TargetMonth,
-				        retail_sales_monthly[geography] = "Calgary, Alberta"
-				    )
+				    CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Calgary, Alberta" )
 			formatString: "#,0"
 
 		measure 'Alberta Sales CAD' =
-				VAR TargetMonth = [Selected Month]
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
 				RETURN
-				    CALCULATE (
-				        [Retail Sales CAD],
-				        REMOVEFILTERS ( retail_sales_monthly ),
-				        retail_sales_monthly[month] = TargetMonth,
-				        retail_sales_monthly[geography] = "Alberta"
-				    )
+				    CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Alberta" )
 			formatString: "#,0"
 
 		measure 'Edmonton Sales Last Year CAD' =
-				VAR PreviousMonth = EDATE ( [Selected Month], -12 )
+				VAR PriorYearMonth = EDATE ( COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) ), -12 )
 				RETURN
-				    CALCULATE (
-				        [Retail Sales CAD],
-				        REMOVEFILTERS ( retail_sales_monthly ),
-				        retail_sales_monthly[month] = PreviousMonth,
-				        retail_sales_monthly[geography] = "Edmonton, Alberta"
-				    )
+				    CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = PriorYearMonth, retail_sales_monthly[geography] = "Edmonton, Alberta" )
 			formatString: "#,0"
 
 		measure 'Calgary Sales Last Year CAD' =
-				VAR PreviousMonth = EDATE ( [Selected Month], -12 )
+				VAR PriorYearMonth = EDATE ( COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) ), -12 )
 				RETURN
-				    CALCULATE (
-				        [Retail Sales CAD],
-				        REMOVEFILTERS ( retail_sales_monthly ),
-				        retail_sales_monthly[month] = PreviousMonth,
-				        retail_sales_monthly[geography] = "Calgary, Alberta"
-				    )
+				    CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = PriorYearMonth, retail_sales_monthly[geography] = "Calgary, Alberta" )
 			formatString: "#,0"
 
-		measure 'Edmonton YoY %' = DIVIDE ( [Edmonton Sales CAD] - [Edmonton Sales Last Year CAD], [Edmonton Sales Last Year CAD] )
+		measure 'Edmonton YoY %' =
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
+				VAR PriorYearMonth = EDATE ( TargetMonth, -12 )
+				VAR CurrentSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Edmonton, Alberta" )
+				VAR PriorYearSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = PriorYearMonth, retail_sales_monthly[geography] = "Edmonton, Alberta" )
+				RETURN
+				    DIVIDE ( CurrentSales - PriorYearSales, PriorYearSales )
 			formatString: "0.00%;-0.00%;0.00%"
 
-		measure 'Calgary YoY %' = DIVIDE ( [Calgary Sales CAD] - [Calgary Sales Last Year CAD], [Calgary Sales Last Year CAD] )
+		measure 'Calgary YoY %' =
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
+				VAR PriorYearMonth = EDATE ( TargetMonth, -12 )
+				VAR CurrentSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Calgary, Alberta" )
+				VAR PriorYearSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = PriorYearMonth, retail_sales_monthly[geography] = "Calgary, Alberta" )
+				RETURN
+				    DIVIDE ( CurrentSales - PriorYearSales, PriorYearSales )
 			formatString: "0.00%;-0.00%;0.00%"
 
-		measure 'Edmonton Share of Alberta %' = DIVIDE ( [Edmonton Sales CAD], [Alberta Sales CAD] )
+		measure 'Edmonton Share of Alberta %' =
+				VAR TargetMonth = COALESCE ( SELECTEDVALUE ( 'Report Month'[month] ), CALCULATE ( MAX ( retail_sales_monthly[month] ), REMOVEFILTERS ( retail_sales_monthly ) ) )
+				VAR EdmontonSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Edmonton, Alberta" )
+				VAR AlbertaSales = CALCULATE ( SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000, REMOVEFILTERS ( retail_sales_monthly ), retail_sales_monthly[month] = TargetMonth, retail_sales_monthly[geography] = "Alberta" )
+				RETURN
+				    DIVIDE ( EdmontonSales, AlbertaSales )
 			formatString: "0.00%;-0.00%;0.00%"
 
 		measure 'Trend YoY %' =
-				VAR CurrentMonth = SELECTEDVALUE ( retail_sales_monthly[month] )
-				VAR CurrentSales = [Retail Sales CAD]
-				VAR PreviousSales =
+				VAR AxisMonth = SELECTEDVALUE ( retail_sales_monthly[month] )
+				VAR CurrentSales = SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000
+				VAR PriorYearSales =
 				    CALCULATE (
-				        [Retail Sales CAD],
+				        SUM ( retail_sales_monthly[sales_cad_thousands] ) * 1000,
 				        REMOVEFILTERS ( retail_sales_monthly[month] ),
-				        retail_sales_monthly[month] = EDATE ( CurrentMonth, -12 )
+				        retail_sales_monthly[month] = EDATE ( AxisMonth, -12 )
 				    )
 				RETURN
-				    IF ( NOT ISBLANK ( CurrentMonth ), DIVIDE ( CurrentSales - PreviousSales, PreviousSales ) )
+				    IF ( NOT ISBLANK ( AxisMonth ), DIVIDE ( CurrentSales - PriorYearSales, PriorYearSales ) )
 			formatString: "0.00%;-0.00%;0.00%"
