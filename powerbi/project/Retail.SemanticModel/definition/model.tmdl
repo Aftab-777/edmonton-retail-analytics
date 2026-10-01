@@ -1,0 +1,11 @@
+model Model
+	culture: en-CA
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-CA
+	discourageImplicitMeasures
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+annotation PBI_QueryOrder = ["retail_sales_monthly","Report Month"]
+
+ref table retail_sales_monthly
+ref table 'Report Month'

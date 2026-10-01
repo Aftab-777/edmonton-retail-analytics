@@ -1,0 +1,13 @@
+/// Disconnected month selector. No relationship to the fact table.
+table 'Report Month'
+
+	column month
+		dataType: dateTime
+		formatString: "mmm yyyy"
+		summarizeBy: none
+		sourceColumn: [month]
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'Report Month' = calculated
+		mode: import
+		source = DISTINCT ( retail_sales_monthly[month] )

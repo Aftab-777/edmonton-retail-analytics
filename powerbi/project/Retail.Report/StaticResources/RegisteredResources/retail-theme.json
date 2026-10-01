@@ -1,0 +1,16 @@
+{
+  "name": "Edmonton Retail Pulse",
+  "dataColors": [
+    "#E57939",
+    "#1D5DB5",
+    "#3F9C88",
+    "#7987A0",
+    "#9A6BC5"
+  ],
+  "background": "#F6F8FC",
+  "foreground": "#172B4D",
+  "tableAccent": "#1D5DB5",
+  "good": "#218465",
+  "neutral": "#E1A13D",
+  "bad": "#C65252"
+}

@@ -1,6 +1,6 @@
 # Build the retail report in Power BI Desktop
 
-The repository includes source data, checked calculations, a theme, and a browser preview. The native report (`.pbix`) must still be built and checked in Power BI Desktop.
+The repository includes source data, checked calculations, a theme, a browser preview and a prepared native Power BI project. For the faster route, follow [Open the prepared Power BI report](OPEN_PROJECT.md); its cards and charts are already defined. The instructions below explain how to build the same report manually and study its calculations. A native Desktop check and final `.pbix` export are still required.
 
 ## Import and select a month
 
